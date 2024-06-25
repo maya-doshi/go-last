@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>go-last</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>go-last</h1>
+        <form id="collageForm" action="collage?">
+            <input type="text" id="user" name="user" placeholder="Username" required><br><br>
+
+            <select name="size" id="size" name="size">
+                <option value="2">2x2</option>
+                <option value="3" selected="selected">3x3</option>
+                <option value="4">4x4</option>
+                <option value="5">5x5</option>
+                <option value="6">6x6</option>
+                <option value="7">7x7</option>
+                <option value="8">8x8</option>
+                <option value="9">9x9</option>
+                <option value="10">10x10</option>
+            </select> <br><br>
+
+            <select name="period" id="period" name="period">
+                <option value="7day">1 week</option>
+                <option value="1month">1 month</option>
+                <option value="3month">3 months</option>
+                <option value="6month">6 months</option>
+                <option value="12month">12 months</option>
+                <option value="overall">All Time</option>
+            </select> <br><br>
+
+            <label for="captions">Captions:</label>
+            <input type="checkbox" id="captions" name="captions"> <br><br>
+
+            <label for="plays">Play Count:</label>
+            <input type="checkbox" id="plays" name="plays"> <br><br>
+
+            <button type="submit">Generate</button>
+        </form>
+    </div>
+</body>
+
+</html>
