@@ -18,10 +18,10 @@ input {
     text-align: center;
     display: inline-block;
     padding: 4px;
-    border: 1px solid #ccc;
+    border: 2px solid #504946;
     border-radius: 4px;
-    /* TODO:*/
-    /*  background-color: #ebdbb2; */
+    color: #ebdbb2;
+    background-color: #3c3836;
 }
 
 select {
@@ -30,6 +30,10 @@ select {
     padding: 4px;
     border: none;
     border-radius: 4px;
+    color: #ebdbb2;
+    background-color: #3c3836;
+    border: 2px solid #504946;
+    -webkit-appearance: none;
 }
 
 button {
