@@ -1,19 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>go-last</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <title>go-last</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-
-<body>
-    <div class="container">
+    <body>
         <h1>go-last</h1>
         <form id="collageForm" action="collage?">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <input type="text" id="user" name="user" placeholder="Username" required><br><br>
-
             <select name="size" id="size" name="size">
                 <option value="2">2x2</option>
                 <option value="3" selected="selected">3x3</option>
@@ -24,8 +21,17 @@
                 <option value="8">8x8</option>
                 <option value="9">9x9</option>
                 <option value="10">10x10</option>
+                <option value="11">11x11</option>
+                <option value="12">12x12</option>
+                <option value="13">13x13</option>
+                <option value="14">14x14</option>
+                <option value="15">15x15</option>
+                <option value="16">16x16</option>
+                <option value="17">17x17</option>
+                <option value="18">18x18</option>
+                <option value="19">19x19</option>
+                <option value="20">20x10</option>
             </select> <br><br>
-
             <select name="period" id="period" name="period">
                 <option value="7day">1 week</option>
                 <option value="1month">1 month</option>
@@ -41,9 +47,9 @@
             <label for="plays">Play Count:</label>
             <input type="checkbox" id="plays" name="plays"> <br><br>
 
-            <button type="submit">Generate</button>
+            <button type="submit">Generate</button> <br><br>
         </form>
-    </div>
-</body>
-
+        <div id="results"></div>
+        <script src="script.js"></script>
+    </body>
 </html>

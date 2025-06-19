@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	"go-last/rank"
 	"go-last/resources"
 	"image"
@@ -8,6 +9,28 @@ import (
 	"net/http"
 	"sync"
 )
+
+func GenAltText(albums []rank.Album, size int, plays bool) string {
+	var altText string
+	var maxDigits int
+
+	len := len(albums)
+	for len > 0 {
+		len /= 10
+		maxDigits++
+	}
+
+	altText += fmt.Sprintf("%dx%d album grid:", size, size)
+
+	for i, album := range albums {
+		altText += "\n" + fmt.Sprintf("%0*d", maxDigits, i + 1)+ ". " + album.Name + " - " + album.Artist;
+		if plays {
+			altText += fmt.Sprintf(" (%d plays)", album.Plays)
+		}
+	}
+	return altText
+}
+
 
 func DownloadImages(albums []rank.Album, albumStream chan<- rank.Album) {
 	var wg sync.WaitGroup

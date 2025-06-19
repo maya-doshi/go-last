@@ -1,21 +1,23 @@
 package main
 
 import (
+	"fmt"
 	"go-last/config"
 	"go-last/imagegen"
 	"go-last/rank"
 	"go-last/resources"
+	"go-last/utils"
 	"image/jpeg"
 	"log"
 	"net/http"
 	"strconv"
 )
 
-func collage(w http.ResponseWriter, r *http.Request) {
+func getArgs(w http.ResponseWriter, r *http.Request) (int, bool, bool, []rank.Album, error) {
 	user := r.URL.Query().Get("user")
 	if user == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		return
+		return 0, false, false, nil, fmt.Errorf("user parameter is required")
 	}
 
 	size, err := strconv.Atoi(r.URL.Query().Get("size"))
@@ -47,6 +49,15 @@ func collage(w http.ResponseWriter, r *http.Request) {
 	albums, err := rank.PlayCount(config.Client, user, period, size*size)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
+		return 0, false, false, nil, fmt.Errorf("grid gen failed")
+	}
+
+	return size, caption, plays, albums, nil
+}
+
+func collage(w http.ResponseWriter, r *http.Request) {
+	size, caption, plays, albums, err := getArgs(w, r)
+	if err != nil {
 		return
 	}
 
@@ -64,6 +75,18 @@ func collage(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
+func altText(w http.ResponseWriter, r *http.Request) {
+	size, _, plays, albums, err := getArgs(w, r)
+	if err != nil {
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "text/plain;")
+	fmt.Fprintf(w, "%s", utils.GenAltText(albums, size, plays))
+	return
+}
+
 func main() {
 	config.Init()
 	resources.Init()
@@ -71,6 +94,7 @@ func main() {
 
 	mux.Handle("/", http.FileServerFS(resources.Static))
 	mux.HandleFunc("/collage", collage)
+	mux.HandleFunc("/altText", altText)
 
 	err := http.ListenAndServe(":"+config.Port, mux)
 	if err != nil {
